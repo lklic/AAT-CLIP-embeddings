@@ -41,11 +41,9 @@ Collection 'aat_CLIP' created.
 Total records to process: 56830
 Inserted records 1 to 1000.
 Inserted records 1001 to 2000.
-Inserted records 2001 to 3000.
-Inserted records 3001 to 4000.
+
 ...
-Inserted records 53001 to 54000.
-Inserted records 54001 to 55000.
+...
 Inserted records 55001 to 56000.
 Inserted records 56001 to 56830.
 Index created on 'embedding' field.
