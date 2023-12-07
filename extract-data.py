@@ -40,7 +40,10 @@ def extract_data(xml_path):
                 break
 
         # Concatenate fields for embedding
-        combined_text = f"{preferred_term}. Hierarchy: {hierarchy}. Note: {descriptive_note}. Type: {record_type}"
+        
+        # Here is an extended description. CLIP wants only 77 tokens per term so I am removing some extra data.
+        # combined_text = f"{preferred_term}. Hierarchy: {hierarchy}. Note: {descriptive_note}. Type: {record_type}"
+        combined_text = f"{preferred_term}. Description: {descriptive_note}"
         terms_data.append((subject_id, combined_text))
 
     return terms_data
