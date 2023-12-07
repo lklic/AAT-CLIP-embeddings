@@ -17,13 +17,12 @@ def generate_embeddings(csv_path, output_csv_path):
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
-    max_length = model.config.text_config.max_position_embeddings
     data_with_embeddings = []
 
     with open(csv_path, newline='', encoding='utf-8') as file:
         reader = csv.reader(file)
         next(reader)  # Skip the header row
-        
+
         # For progress logging
         total_rows = sum(1 for row in reader)
         file.seek(0)  # Reset file pointer to the beginning after counting
@@ -31,8 +30,8 @@ def generate_embeddings(csv_path, output_csv_path):
 
         print(f"Total terms to process: {total_rows}")
         for index, row in enumerate(reader, start=1):
-            text = row[1][:max_length]  # Truncate the text to the maximum length
-            inputs = processor(text=text, return_tensors="pt", padding=True, truncation=True).to(device)
+            text = row[1]  # Use the full text
+            inputs = processor(text=text, return_tensors="pt", padding=True, truncation=True, max_length=77).to(device)
             outputs = model.get_text_features(**inputs)
             embedding = outputs.detach().cpu().numpy()[0]
             data_with_embeddings.append([row[0], text, embedding.tolist()])
